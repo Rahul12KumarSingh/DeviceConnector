@@ -1,10 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AuthContextProvider from './store/auth-context';
+import { useContext } from 'react';
 
-const Stack = createNativeStackNavigator();
+
+
+// importinf the navigation component....
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+
+// importing the context provider and context to use centrallized state management...
+import AuthContextProvider from './store/auth-context';
+import DeviceContextProvider from './store/device-context';
+import { authContext } from './store/auth-context';
+
+
+
+// importing all the screens....
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
+import HomeScreen from './screens/HomeScreen';
+import AddDeviceScreen from './screens/AddDeviceScreen';
+import DeviceDetailScreen from './screens/DeviceDetailScreen';
+import DocumentationScreen from './screens/DocumentationScreen';
+import ContributionScreen from './screens/ContributionScreen';
+import ControllerCodeScreen from './screens/ControllerCodeScreen';
+
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 
 function AuthStack() {
@@ -19,7 +44,9 @@ function AuthStack() {
 function DrawerNavigator() {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="ADDDEVICES" component={DeviceScreen} />
+      <Drawer.Screen name="HOME" component={HomeScreen} />
+
+      <Drawer.Screen name="ADDDEVICES" component={AddDeviceScreen} />
 
       <Drawer.Screen name="GET-CODE" component={ControllerCodeScreen} />
 
@@ -34,16 +61,25 @@ function DrawerNavigator() {
 
 function AuthenticatedStack() {
   return (
+
     <Stack.Navigator>
+      <Stack.Screen name="HomeDrawer" component={DrawerNavigator} 
+         options={
+          {
+            headerShown: false,
+          }
+         }
+      />
       <Stack.Screen name="DeviceInDetails" component={DeviceDetailScreen} />
     </Stack.Navigator>
+
   )
 }
 
 
 function Navigation() {
-  const authContext = useContext(authContext);
-  const { isAuthenticated } = authContext;
+  const authCtx = useContext(authContext);
+  const { isAuthenticated } = authCtx;
 
   return (
     <NavigationContainer>
@@ -57,8 +93,10 @@ function Navigation() {
 export default function App() {
   return (
     <AuthContextProvider>
-      <StatusBar style="light" />
-      <Navigation />
+      <DeviceContextProvider>
+        <StatusBar style="light" />
+        <Navigation />
+      </DeviceContextProvider>
     </AuthContextProvider>
   );
 }

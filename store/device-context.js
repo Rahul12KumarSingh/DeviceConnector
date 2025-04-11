@@ -1,8 +1,7 @@
-import { createContext } from "react";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { createContext, useState } from "react";
 
 export const deviceContext = createContext({
-    devices :[] ,
+    devices : [] ,
     code : "" ,
     addDevice : (device) => {},
     updateCode : (newCode) => {},
@@ -21,10 +20,10 @@ function DeviceContextProvider({ children }) {
     }
 
     const value = {
-        devices,
-        code,
-        addDevice,
-        updateCode ,
+        devices : devices,
+        code : code,
+        addDevice : addDevice,
+        updateCode : updateCode,
     } ;
 
     return (

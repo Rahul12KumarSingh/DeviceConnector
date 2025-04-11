@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import { Text, StyleSheet, FlatList, View } from 'react-native'
 import deviceContext from '../store/device-context'
+import DeviceListItem from '../components/DeviceListItem';
 
 
 export default function HomeScreen({ navigation, router }) {
     const deviceCtx = useContext(deviceContext)
 
-    useEffect(() => {
-        getDeviceService();  // Fetch the devices from the server and update the context....
-    }, []);
+    // useEffect(() => {
+    //     getDeviceService();  // Fetch the devices from the server and update the context....
+    // }, []);
 
     const renderDevice = (deviceInfo) => {
 
@@ -23,7 +24,7 @@ export default function HomeScreen({ navigation, router }) {
         )
     }
 
-    if (deviceCtx.device.length == 0) {
+    if (1) {
         return (
             <View>
                 <Text style={styles.text}>
@@ -39,7 +40,7 @@ export default function HomeScreen({ navigation, router }) {
 
     return (
         <FlatList
-            data={deviceCtx.device}
+            data={deviceCtx.devices}
             keyExtractor={(item) => item.id}
             renderItem={renderDevice}
             numColumns={2}

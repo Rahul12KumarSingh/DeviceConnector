@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Text } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 
 export default function AddDeviceScreen({ navigation, route }) {
     const onPressHandler = () => {

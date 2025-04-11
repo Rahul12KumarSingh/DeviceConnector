@@ -3,12 +3,12 @@ import { Pressable, Text, View } from 'react-native'
 import { StyleSheet } from 'react-native'
 
 
-export default function DeviceListItem({ DeviceInfo, onPress }) {
+export default function DeviceListItem({ DeviceInfo, onPress}) {
 
     return (
         <View style={[styles.gridItem, { backgroundColor: color }]}>
             <Pressable android_ripple={{ color: '#ccc' }} style={(pressed) => [styles.button, pressed ? styles.buttonPressed : null]} onPress={onPress} >
-                <View style={[styles.innerGridItem, { backgroundColor: color }]}>
+                <View style={[styles.innerGridItem, { backgroundColor: colorList[floor( Math.random()*10)]} ]  }>
                     <Text>{DeviceInfo?.name}</Text>
                 </View>
             </Pressable>
@@ -17,6 +17,18 @@ export default function DeviceListItem({ DeviceInfo, onPress }) {
 }
 
 
+const colorList = [
+    '#f5428d',
+    '#f54242',
+    '#f5a442',
+    '#f5d142',
+    '#368dff',
+    '#41d95d',
+    '#9eecff',
+    '#b9ecff',
+    '#c742f5',
+    '#42f554',
+]
 
 const styles = StyleSheet.create({
     gridItem :{
