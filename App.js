@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 
 // importinf the navigation component....
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer , DefaultTheme} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -26,15 +26,32 @@ import DeviceDetailScreen from './screens/DeviceDetailScreen';
 import DocumentationScreen from './screens/DocumentationScreen';
 import ContributionScreen from './screens/ContributionScreen';
 import ControllerCodeScreen from './screens/ControllerCodeScreen';
+import AddDevicePopupScreen from './screens/AddDevicePopupScreen';
 
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#050505',
+  },
+};
+
 
 function AuthStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={
+        {
+          headerStyle: {
+            backgroundColor: '#f6e193',
+          },
+        }
+      }
+    >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Singup" component={SignupScreen} />
     </Stack.Navigator>
@@ -43,10 +60,20 @@ function AuthStack() {
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="HOME" component={HomeScreen} />
+    <Drawer.Navigator
+      screenOptions={
+        {
+          headerStyle: {
+            backgroundColor: '#f6e193',
+          },
+        }
+      }
+    >
+      <Drawer.Screen name="HOME" component={DeviceDetailScreen}
+      />
 
-      <Drawer.Screen name="ADDDEVICES" component={AddDeviceScreen} />
+      <Drawer.Screen name="ADDDEVICES" component={AddDeviceScreen}
+      />
 
       <Drawer.Screen name="GET-CODE" component={ControllerCodeScreen} />
 
@@ -61,16 +88,33 @@ function DrawerNavigator() {
 
 function AuthenticatedStack() {
   return (
-
-    <Stack.Navigator>
-      <Stack.Screen name="HomeDrawer" component={DrawerNavigator} 
-         options={
+    <Stack.Navigator
+      screenOptions={
+        {
+          headerStyle: {
+            backgroundColor: '#f6f1dd',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: { fontWeight: 'bold' }
+        }
+      }
+    >
+      <Stack.Screen name="HomeDrawer" component={DrawerNavigator}
+        options={
           {
             headerShown: false,
           }
-         }
+        }
       />
       <Stack.Screen name="DeviceInDetails" component={DeviceDetailScreen} />
+
+      <Stack.Screen name="AddDevicePopup" component={AddDevicePopupScreen} 
+        options = {{
+          presentation: 'modal',
+          headerShown: false,
+          animation : 'slide_from_bottom',
+        }}
+      />
     </Stack.Navigator>
 
   )
@@ -82,7 +126,7 @@ function Navigation() {
   const { isAuthenticated } = authCtx;
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       {isAuthenticated && <AuthenticatedStack />}
       {!isAuthenticated && <AuthStack />}
     </NavigationContainer>
@@ -94,7 +138,9 @@ export default function App() {
   return (
     <AuthContextProvider>
       <DeviceContextProvider>
-        <StatusBar style="light" />
+        <StatusBar style="dark"
+          //  backgroundColor="#ffffff"
+        />
         <Navigation />
       </DeviceContextProvider>
     </AuthContextProvider>
@@ -102,10 +148,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
 });
