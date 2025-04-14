@@ -79,22 +79,23 @@ export default function DeviceDetailScreen() {
           data={chartData}
           width={screenWidth}
           height={400}
-          yAxisSuffix="°C" // used for providing the suffix to the Y axis labels 
-          withVerticalLabels={true} 
-          withHorizontalLines={true}
-          withVerticalLines={true}
+          yAxisSuffix="°C" //used for providing the suffix to the Y axis labels 
+          withVerticalLabels={true} //used for providing the vertical labels on the graph
+          withVerticalLines={true} //Vertical lines go down from each X-axis point
+          withHorizontalLines={true} //Used for providing the horizontal lines on the graph
+          withHorizontalLabels={true}  //Used for providing the horizontal labels on the graph
           withDots={true}
           chartConfig={{
             color: (opacity = 1) => `rgba(255, 255 , 255, ${opacity})`, //used for providing color to the lines in the graph
             labelColor: (opacity = 1) => `rgba(255, 255 , 255, ${opacity})`, //used for providing color to the labels on the X and Y axis
             fillShadowGradient: '#3498db',
             fillShadowGradientOpacity: 0.4,
-            propsForDots: { // used for providing the properties of the dots ball on the graph to point the data points
+            propsForDots: { //used for providing the properties of the dots ball on the graph to point the data points
               r: '0',
               strokeWidth: '0',
               stroke: '#3498db',
             },
-            propsForBackgroundLines: { // used for providing the properties of the background lines on the graph
+            propsForBackgroundLines: { //used for providing the properties of the background lines on the graph
               stroke: '#bff9c5',
               strokeDasharray: '2',
               strokeWidth: 0.1,

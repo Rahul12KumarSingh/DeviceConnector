@@ -1,21 +1,14 @@
-const axios = require('axios');
-const { getToken } = require('./auth');
-const { API_URL } = require('./config');
+import axios from 'axios';
 
-const instance = axios.create({
-    baseURL: API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    });
+const axiosInstance = axios.create({});
     
-const request = async ( method , endpoint , payload) => {
-    const token = await getToken();
-    return instance.get(url, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-        params,
-    });
+export const request = async (method , url , payload , headers , params) => {
+    return axiosInstance({
+        method : `${method}` ,
+        url : `${url}` ,
+        data : payload ? payload : {},
+        headers : headers ? headers : null,
+        params : params ? params : null
+    }) ;
 }
 
